@@ -181,6 +181,13 @@ void edog_switch_off(void)
   edog_send_receive();
 }
 
+void edog_switch_off_1(uint8_t value)
+{
+  Serial.println("Switch off 1");
+  edog_build_uint_msg(REG_ADDR_SWITCH_OFF_1, value, 1, 0);
+  edog_send_receive();
+}
+
 void edog_load_eeprom(void)
 {
   Serial.println("Load EEPROM Data");

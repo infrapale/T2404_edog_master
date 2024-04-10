@@ -6,6 +6,8 @@
 
 uint32_t next_power_off_ms;
 uint32_t next_watchdog_reset_ms;
+uint32_t next_off_1_ms;
+bool     off_1 = false;
 
 
 void setup() {
@@ -35,11 +37,12 @@ void setup() {
   delay(5);
   edog_set_wd_timeout(4000);
   delay(1);
-  edog_set_sleep_time(4000);
+  edog_set_sleep_time(10000);
   delay(10);
 
 next_power_off_ms = millis() + 4000;
-next_watchdog_reset_ms  = millis() + 500;
+next_watchdog_reset_ms  = millis() + 5000;
+next_off_1_ms = millis() + 60;
 
 }
 
@@ -53,11 +56,18 @@ void loop() {
   }
   if (millis() > next_power_off_ms)
   {
-    // edog_switch_off();
-    next_power_off_ms = millis() + 5000;
+    edog_switch_off();
+    next_power_off_ms = millis() + 30000;
 
-    edog_read_eeprom(0x0010);
+    //edog_read_eeprom(0x0180);
+  }
 
+  if (millis() > next_off_1_ms)
+  {
+      if (off_1) edog_switch_off_1(0);
+      else  edog_switch_off_1(1);
+      off_1 = !off_1;
+      next_off_1_ms = millis() + 100;
   }
 
 }

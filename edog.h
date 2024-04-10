@@ -38,6 +38,7 @@ typedef enum
   REG_ADDR_EEPROM_ADDR      = 0x0A,
   REG_ADDR_EEPROM_LOAD      = 0x0C,
   REG_ADDR_EEPROM_SAVE      = 0x0D,
+  REG_ADDR_SWITCH_OFF_1     = 0x0E,
   REG_ADDR_EEPROM_READ      = 0x10,
   REG_ADDR_EEPROM_WRITE     = 0x20,
   REG_ADDR_3 = 0x03,
@@ -77,6 +78,8 @@ void edog_set_sleep_time(uint32_t sleep_time);
 void edog_clear_watchdog(void);
 
 void edog_switch_off(void);
+
+void edog_switch_off_1(uint8_t value);
 
 void edog_load_eeprom(void);
 
